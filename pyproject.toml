@@ -8,9 +8,35 @@ omit = [
 [tool.poetry]
 name = "ariadne-django-ext"
 version = "0.1.0"
-description = ""
+description = "Usable utility extensions for Ariadne & Django"
 authors = ["Dulmandakh <dulmandakh@gmail.com>"]
 license = "MIT"
+homepage = "https://github.com/dulmandakh/ariadne-django-ext"
+repository = "https://github.com/dulmandakh/ariadne-django-ext"
+keywords = ["django", "ariadne", "cache", "graphql"]
+readme = "README.md"
+classifiers = [
+    "Topic :: Software Development :: Build Tools",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Framework :: Django",
+    "Framework :: Django :: 2.2",
+    "Framework :: Django :: 3.0",
+    "Framework :: Django :: 3.1",
+    "Framework :: Django :: 3.2",   
+]
+packages = [
+    { include = "ariadne_django_ext"},
+]
+include = [
+    "LICENSE",
+    "README.md"
+]
 
 [tool.poetry.dependencies]
 python = "^3.6.2"
