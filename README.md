@@ -72,6 +72,30 @@ Above example will return following dict
 { "result": "result" }
 ```
 
+### isAuthenticated & isStaff directive
+
+A resolver will receive an authenticated user as keyword argument.
+
+```graphql
+directive @isAuthenticated on FIELD_DEFINITION
+
+type User {
+  id: ID
+  username: String
+  ipAddress: String @isAuthenticated
+}
+```
+
+```python
+from ariadne_django_ext import IsAuthenticatedDirective
+
+schema = make_executable_schema(
+  type_defs,
+  resolvers,
+  directives={"isAuthenticated": IsAuthenticatedDirective}
+)
+```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
@@ -81,3 +105,7 @@ Please make sure to update tests as appropriate.
 ## License
 
 [MIT License](https://choosealicense.com/licenses/mit/)
+
+```
+
+```
