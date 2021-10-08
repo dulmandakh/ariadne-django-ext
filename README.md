@@ -35,9 +35,13 @@
 pip install ariadne-django-ext
 ```
 
+## Usage
+
+### cache
+
 **cache** decorator will cache a result returned from resolver using Django cache framework. You can it accepts **timeout** and **version** parameters and passed down.
 
-Cache key must be either str or callable. Callable must accept parent, info as argument then return cache key.
+Cache key must be either str or callable. Callable will receive same argument as resolver then return cache key.
 
 ```python
 from ariadne_django_ext import cache
@@ -47,6 +51,25 @@ def resolver(parent, info):
     ...
     return 'result'
 
+```
+
+### wrap_result
+
+**wrap_result** decorator wraps return value of a resolver into dictionary with the key
+
+```python
+from ariadne_django_ext import wrap_result
+
+@wrap_result(key='result')
+def resolver(parent, info):
+    return 'result'
+
+```
+
+Above example will return following dict
+
+```json
+{ "result": "result" }
 ```
 
 ## Contributing
