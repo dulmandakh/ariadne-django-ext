@@ -39,9 +39,11 @@ pip install ariadne-django-ext
 
 ### cache
 
-**cache** decorator will cache a result returned from resolver using Django cache framework. You can it accepts **timeout** and **version** parameters and passed down.
+**cache** decorator will cache a result returned from resolver using Django cache framework. You can it accepts same keyword arguments and passed down to Django cache.
 
-Cache key must be either str or callable. Callable will receive same argument as resolver then return cache key.
+Cache key must be either value or callable. Callable will receive same arguments as resolver then return cache key. Callable may return **None** to bypass the cache.
+
+It uses **typename** and **key** from **info.path** as cache key prefix.
 
 ```python
 from ariadne_django_ext import cache

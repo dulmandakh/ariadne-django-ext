@@ -1,6 +1,6 @@
 from ariadne import SchemaDirectiveVisitor
-from graphql import default_field_resolver
 from django.core.exceptions import PermissionDenied
+from graphql import default_field_resolver
 
 
 class IsAuthenticatedDirective(SchemaDirectiveVisitor):
