@@ -7,7 +7,7 @@ import nox
 def lint(session):
     session.run("black", "--check", ".")
     session.run("flake8", ".")
-    session.run("isort", "-q", ".")
+    session.run("isort", "-c", "-q", ".")
 
 
 @nox.session
