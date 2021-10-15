@@ -1,6 +1,7 @@
 from ariadne import SchemaDirectiveVisitor
-from django.core.exceptions import PermissionDenied
 from graphql import default_field_resolver
+
+from .utils import PermissionDenied, is_authenticated
 
 
 class IsAuthenticatedDirective(SchemaDirectiveVisitor):
@@ -8,11 +9,9 @@ class IsAuthenticatedDirective(SchemaDirectiveVisitor):
         original_resolver = field.resolve or default_field_resolver
 
         def resolve_for_authenticated_user(parent, info, **kwargs):
-            user = info.context["request"].user
-            if user and user.is_authenticated:
+            user = is_authenticated(info.context["request"])
+            if user:
                 return original_resolver(parent, info, user=user, **kwargs)
-            else:
-                raise PermissionDenied()
 
         field.resolve = resolve_for_authenticated_user
         return field
@@ -23,11 +22,10 @@ class IsStaffDirective(SchemaDirectiveVisitor):
         original_resolver = field.resolve or default_field_resolver
 
         def resolve_for_authenticated_user(parent, info, **kwargs):
-            user = info.context["request"].user
-            if user and user.is_authenticated and user.is_staff:
+            user = is_authenticated(info.context["request"])
+            if user and user.is_staff:
                 return original_resolver(parent, info, user=user, **kwargs)
-            else:
-                raise PermissionDenied()
+            raise PermissionDenied()
 
         field.resolve = resolve_for_authenticated_user
         return field
