@@ -1,7 +1,7 @@
-from django.core.exceptions import PermissionDenied
-from ariadne_django_ext.decorators import login_required
-
 import pytest
+from django.core.exceptions import PermissionDenied
+
+from ariadne_django_ext.decorators import login_required
 
 
 def test_login_required(user_request):

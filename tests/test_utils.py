@@ -1,7 +1,7 @@
-from ariadne_django_ext import utils
+import pytest
 from django.core.exceptions import PermissionDenied
 
-import pytest
+from ariadne_django_ext import utils
 
 
 def test_is_authenticated(user_request):
