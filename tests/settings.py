@@ -1,3 +1,8 @@
 SECRET_KEY = "asda"
-INSTALLED_APPS = ["tests"]
-USE_TZ = False
+INSTALLED_APPS = ["django.contrib.auth", "django.contrib.contenttypes"]
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "test",
+    }
+}
