@@ -15,5 +15,5 @@ def test_is_authenticated(user_request):
 
         # check is_active, don't raise
         assert utils.is_authenticated(user_request, True, False) == None
-        if user:
+        if user is not None:
             assert utils.is_authenticated(user_request, False) == user
