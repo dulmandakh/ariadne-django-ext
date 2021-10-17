@@ -1,5 +1,7 @@
 import pytest
 
+password = "something"
+
 
 @pytest.fixture(
     ids=["anonymous", "not-active", "authenticated"],
@@ -7,9 +9,12 @@ import pytest
 )
 def user(request, django_user_model):
     if request.param is not None:
-        return django_user_model.objects.create(
-            username="someone", password="something", is_active=request.param
+        user = django_user_model.objects.create(
+            username="someone", is_active=request.param
         )
+        user.set_password(password)
+        user.save(update_fields=["password"])
+        return user
 
 
 @pytest.fixture
