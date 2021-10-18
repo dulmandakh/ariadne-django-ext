@@ -9,7 +9,7 @@ from .utils import is_authenticated
 def allow_basic_auth(view_func):
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
-        if getattr(request, "user", None) is None:
+        if not hasattr(request, "user") or request.user.is_anonymous:
             http_auth = request.META.get("HTTP_AUTHORIZATION")
             if http_auth and http_auth.startswith("Basic"):
                 try:

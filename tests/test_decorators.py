@@ -1,6 +1,7 @@
 from base64 import b64encode
 
 import pytest
+from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import PermissionDenied
 
 from ariadne_django_ext import decorators
@@ -8,13 +9,11 @@ from ariadne_django_ext import decorators
 from .conftest import password
 
 
-def test_allow_basic_auth(user, rf, django_user_model):
-    return_value = "return_value"
-
+def test_allow_basic_auth(user, rf):
     @decorators.allow_basic_auth
     @decorators.login_required
     def view(_):
-        return return_value
+        return True
 
     request = rf.get("/")
     if user:
@@ -24,7 +23,10 @@ def test_allow_basic_auth(user, rf, django_user_model):
 
     assert getattr(request, "user", None) is None
     if user and user.is_active:
-        assert view(request) == return_value
+        assert view(request)
+
+        request.user = AnonymousUser()
+        assert view(request)
     else:
         with pytest.raises(PermissionDenied):
             view(request)
